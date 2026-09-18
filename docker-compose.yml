@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reservation-api-backend
+    ports:
+      - '8080:80'
+    volumes:
+      - ./backend:/var/www/html
+      - ./frontend:/var/www/html/public/app
+      - ./.env:/var/www/html/.env
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    networks:
+      - reservation-network
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: reservation-api-mysql
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: reservation_api
+      MYSQL_USER: reservation_user
+      MYSQL_PASSWORD: reservation_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-proot_password']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - reservation-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  reservation-network:
+    driver: bridge

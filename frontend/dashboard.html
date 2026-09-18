@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Transport Reservation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <nav class="glass-panel navbar">
+        <div class="nav-brand">🚌 Transport API</div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+            <li><a href="trajets.html">🛣️ Trajets</a></li>
+            <li><a href="reservations.html">🎫 Réservations</a></li>
+        </ul>
+        <div class="user-info">
+            <span id="user-email">Loading...</span>
+            <button id="logout-btn" class="btn btn-sm btn-secondary">Déconnexion</button>
+        </div>
+    </nav>
+
+    <div class="container fade-in">
+        <h2 style="margin-bottom: 2rem;">Vue d'ensemble</h2>
+        
+        <div class="stats-grid" id="dashboard-stats">
+            <div class="glass-panel stat-card">
+                <div class="stat-icon" style="color: #3b82f6;">🎫</div>
+                <div class="stat-details">
+                    <p>Total Réservations</p>
+                    <h3 id="stat-total">-</h3>
+                </div>
+            </div>
+            <div class="glass-panel stat-card">
+                <div class="stat-icon" style="color: var(--success);">✅</div>
+                <div class="stat-details">
+                    <p>Confirmées</p>
+                    <h3 id="stat-confirmed">-</h3>
+                </div>
+            </div>
+            <div class="glass-panel stat-card">
+                <div class="stat-icon" style="color: var(--danger);">❌</div>
+                <div class="stat-details">
+                    <p>Annulées</p>
+                    <h3 id="stat-cancelled">-</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="padding: 1.5rem;">
+            <h3>Dernières Réservations</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Trajet</th>
+                            <th>Places</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-reservations">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

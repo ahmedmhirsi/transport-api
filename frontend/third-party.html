@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partenaires API - Transport Reservation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="third-party-theme">
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section" class="login-container fade-in hidden">
+        <div class="glass-panel login-card">
+            <div class="login-logo">🤝</div>
+            <h2>Accès Partenaire</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Portail API Tierce</p>
+            
+            <form id="api-login-form">
+                <div class="form-group">
+                    <input type="text" id="api_key" class="form-control" placeholder="🔑 Clé API" required>
+                </div>
+                <div id="login-error" style="margin-bottom: 1rem; font-size: 0.9rem;"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Connecter l'Application</button>
+            </form>
+            
+            <div class="demo-creds">
+                <strong>Clé de test (Demo) :</strong><br>
+                tk_live_test_key_travel_agency_2026
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                <a href="index.html" style="font-size: 0.85rem;">&larr; Retour Client</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden" style="display:none;">
+        <nav class="glass-panel navbar">
+            <div class="nav-brand">🤝 Portail Partenaire (API)</div>
+            <div class="user-info">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="checkbox" id="auto-refresh-toggle"> Auto-refresh webhooks
+                </label>
+                <button id="logout-btn" class="btn btn-sm btn-secondary">Déconnecter App</button>
+            </div>
+        </nav>
+
+        <div class="container fade-in">
+            <h2 style="margin-bottom: 2rem;">Vue d'ensemble Partenaire</h2>
+            
+            <div class="stats-grid">
+                <div class="glass-panel stat-card">
+                    <div class="stat-icon" style="color: #3b82f6;">🎫</div>
+                    <div class="stat-details">
+                        <p>Total Réservations (App)</p>
+                        <h3 id="stat-total">-</h3>
+                    </div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-icon" style="color: var(--success);">✅</div>
+                    <div class="stat-details">
+                        <p>Confirmées</p>
+                        <h3 id="stat-confirmed">-</h3>
+                    </div>
+                </div>
+                <div class="glass-panel stat-card">
+                    <div class="stat-icon" style="color: var(--danger);">❌</div>
+                    <div class="stat-details">
+                        <p>Annulées</p>
+                        <h3 id="stat-cancelled">-</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3>Réservations de l'application</h3>
+                    <div class="table-container">
+                        <table id="reservations-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Trajet</th>
+                                    <th>Places</th>
+                                    <th>Statut</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3>Logs Webhook</h3>
+                    <div class="table-container">
+                        <table id="webhooks-table">
+                            <thead>
+                                <tr>
+                                    <th>Événement</th>
+                                    <th>Statut</th>
+                                    <th>Date</th>
+                                    <th>Payload (Preview)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/third-party.js"></script>
+</body>
+</html>
